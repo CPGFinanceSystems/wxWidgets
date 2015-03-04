@@ -244,7 +244,6 @@ bool wxScrollHelperEvtHandler::ProcessEvent(wxEvent& event)
 
     if ( evType == wxEVT_CHILD_FOCUS )
     {
-        m_scrollHelper->HandleOnChildFocus((wxChildFocusEvent &)event);
         return true;
     }
 
