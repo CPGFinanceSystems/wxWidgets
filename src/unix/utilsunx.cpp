@@ -1108,8 +1108,6 @@ extern "C" void wxFatalSignalHandler(wxTYPE_SA_HANDLER)
         // give the user a chance to do something special about this
         wxTheApp->OnFatalException();
     }
-
-    abort();
 }
 
 bool wxHandleFatalExceptions(bool doit)

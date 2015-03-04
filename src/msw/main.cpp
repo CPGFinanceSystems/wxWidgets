@@ -147,9 +147,6 @@ void wxSETranslator(unsigned int WXUNUSED(code), EXCEPTION_POINTERS *ep)
         case EXCEPTION_EXECUTE_HANDLER:
             // if wxApp::OnFatalException() had been called we should exit the
             // application -- but we shouldn't kill our host when we're a DLL
-#ifndef WXMAKINGDLL
-            wxFatalExit();
-#endif // not a DLL
             break;
 
         case EXCEPTION_CONTINUE_SEARCH:
