@@ -335,7 +335,7 @@ inline RECT wxGetWindowRect(HWND hwnd)
     RECT rect;
 
     if ( !::GetWindowRect(hwnd, &rect) )
-        wxLogLastError(_T("GetWindowRect"));
+        wxLogLastError(wxT("GetWindowRect"));
 
     return rect;
 }
@@ -345,7 +345,7 @@ inline RECT wxGetClientRect(HWND hwnd)
     RECT rect;
 
     if ( !::GetClientRect(hwnd, &rect) )
-        wxLogLastError(_T("GetClientRect"));
+        wxLogLastError(wxT("GetClientRect"));
 
     return rect;
 }
@@ -415,7 +415,7 @@ public:
 
     void Init(HDC hdc, HGDIOBJ hgdiobj)
     {
-        wxASSERT_MSG( !m_hdc, _T("initializing twice?") );
+        wxASSERT_MSG( !m_hdc, wxT("initializing twice?") );
 
         m_hdc = hdc;
 
@@ -444,7 +444,7 @@ protected:
 
     void InitGdiobj(HGDIOBJ gdiobj)
     {
-        wxASSERT_MSG( !m_gdiobj, _T("initializing twice?") );
+        wxASSERT_MSG( !m_gdiobj, wxT("initializing twice?") );
 
         m_gdiobj = gdiobj;
     }
@@ -537,7 +537,7 @@ public:
         : m_hdc(hdc)
     {
         if ( !::SelectClipRgn(hdc, hrgn) )
-            wxLogLastError(_T("SelectClipRgn"));
+            wxLogLastError(wxT("SelectClipRgn"));
     }
 
     ~HDCClipper()
@@ -566,7 +566,7 @@ private:
         {
             m_modeOld = ::SetMapMode(hdc, mm);
             if ( !m_modeOld )
-                wxLogLastError(_T("SelectClipRgn"));
+                wxLogLastError(wxT("SelectClipRgn"));
         }
 
         ~HDCMapModeChanger()
@@ -595,13 +595,13 @@ public:
     {
         m_hGlobal = ::GlobalAlloc(flags, size);
         if ( !m_hGlobal )
-            wxLogLastError(_T("GlobalAlloc"));
+            wxLogLastError(wxT("GlobalAlloc"));
     }
 
     ~GlobalPtr()
     {
         if ( m_hGlobal && ::GlobalFree(m_hGlobal) )
-            wxLogLastError(_T("GlobalFree"));
+            wxLogLastError(wxT("GlobalFree"));
     }
 
     // implicit conversion
@@ -623,7 +623,7 @@ public:
     {
         m_ptr = GlobalLock(hGlobal);
         if ( !m_ptr )
-            wxLogLastError(_T("GlobalLock"));
+            wxLogLastError(wxT("GlobalLock"));
     }
 
     ~GlobalPtrLock()
@@ -635,7 +635,7 @@ public:
             DWORD dwLastError = ::GetLastError();
             if ( dwLastError != NO_ERROR )
             {
-                wxLogApiError(_T("GlobalUnlock"), dwLastError);
+                wxLogApiError(wxT("GlobalUnlock"), dwLastError);
             }
 #endif // __WXDEBUG__
         }
@@ -668,12 +668,12 @@ public:
     {
         // we should only be called if we hadn't been initialized yet
         wxASSERT_MSG( m_registered == -1,
-                        _T("calling ClassRegistrar::Register() twice?") );
+                        wxT("calling ClassRegistrar::Register() twice?") );
 
         m_registered = ::RegisterClass(&wc) ? 1 : 0;
         if ( !IsRegistered() )
         {
-            wxLogLastError(_T("RegisterClassEx()"));
+            wxLogLastError(wxT("RegisterClassEx()"));
         }
         else
         {
@@ -694,7 +694,7 @@ public:
         {
             if ( !::UnregisterClass(m_clsname, wxhInstance) )
             {
-                wxLogLastError(_T("UnregisterClass"));
+                wxLogLastError(wxT("UnregisterClass"));
             }
         }
     }
@@ -780,7 +780,7 @@ inline wxString wxGetFullModuleName(HMODULE hmod)
                 MAX_PATH
             ) )
     {
-        wxLogLastError(_T("GetModuleFileName"));
+        wxLogLastError(wxT("GetModuleFileName"));
     }
 
     return fullname;
