@@ -846,6 +846,9 @@ wxLogDialog::wxLogDialog(wxWindow *parent,
         // there's enough space.
         Move(wxPoint(GetPosition().x, GetPosition().y / 2));
     }
+
+    wxCommandEvent UnusedEvent;
+    OnDetails(UnusedEvent);
 }
 
 void wxLogDialog::CreateDetailsControls()
