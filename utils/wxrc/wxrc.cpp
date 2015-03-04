@@ -395,7 +395,7 @@ wxArrayString XmlResApp::PrepareTempFiles()
 
         wxXmlDocument doc;
 
-        if (!doc.Load(parFiles[i]))
+        if (!doc.Load(parFiles[i], _T("ISO-8859-1")))
         {
             wxLogError(wxT("Error parsing file ") + parFiles[i]);
             retCode = 1;

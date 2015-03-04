@@ -473,7 +473,7 @@ bool wxXmlResource::UpdateResources()
                 delete m_data[i].Doc;
                 m_data[i].Doc = new wxXmlDocument;
             }
-            if (!stream || !m_data[i].Doc->Load(*stream, encoding))
+            if (!stream || !m_data[i].Doc->Load(*stream, _T("ISO-8859-1")))
             {
                 wxLogError(_("Cannot load resources from file '%s'."),
                            m_data[i].File.c_str());
