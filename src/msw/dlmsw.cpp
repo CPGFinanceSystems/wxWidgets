@@ -278,9 +278,14 @@ wxDllType wxDynamicLibrary::GetProgramHandle()
 wxDllType
 wxDynamicLibrary::RawLoad(const wxString& libname, int flags)
 {
+    int iMswFlags = 0;
+    // Damit beim Oeffnen der BSS-DLL vom Lizenz-Tool aus, keine anderen DLLs benoetigt werden
+    if (flags & wxDL_LAZY)
+      iMswFlags |= DONT_RESOLVE_DLL_REFERENCES;
+
     return flags & wxDL_GET_LOADED
             ? ::GetModuleHandle(libname)
-            : ::LoadLibrary(libname);
+            : ::LoadLibraryEx(libname, NULL, iMswFlags);
 }
 
 /* static */
