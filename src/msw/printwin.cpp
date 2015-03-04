@@ -174,9 +174,6 @@ bool wxWindowsPrinter::Print(wxWindow *parent, wxPrintout *printout, bool prompt
     m_printDialogData.SetMinPage(minPage);
     m_printDialogData.SetMaxPage(maxPage);
 
-    wxWindow *win = CreateAbortWindow(parent, printout);
-    wxYield();
-
 #if defined(__WATCOMC__) || defined(__BORLANDC__) || defined(__GNUWIN32__) || defined(__SALFORDC__) || !defined(__WIN32__)
 #ifdef STRICT
     ::SetAbortProc((HDC) dc->GetHDC(), (ABORTPROC) m_lpAbortProc);
@@ -195,18 +192,6 @@ bool wxWindowsPrinter::Print(wxWindow *parent, wxPrintout *printout, bool prompt
 #endif
         )m_lpAbortProc);
 #endif
-
-    if (!win)
-    {
-        wxLogDebug(wxT("Could not create an abort dialog."));
-        sm_lastError = wxPRINTER_ERROR;
-
-        delete dc;
-        return false;
-    }
-    sm_abortWindow = win;
-    sm_abortWindow->Show();
-    wxSafeYield();
 
     printout->OnBeginPrinting();
 
