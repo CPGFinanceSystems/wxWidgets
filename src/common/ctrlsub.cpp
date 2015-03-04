@@ -61,7 +61,10 @@ bool wxItemContainerImmutable::SetStringSelection(const wxString& s)
 {
     const int sel = FindString(s);
     if ( sel == wxNOT_FOUND )
+    {
+        wxLogError(_("Auswahl %s in Liste nicht vorhanden!"), s.c_str());
         return false;
+    }
 
     SetSelection(sel);
 
