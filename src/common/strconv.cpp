@@ -630,7 +630,7 @@ static const unsigned char utf7encode[128] =
 {
     3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 3, 3, 2, 3, 3,
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-    2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 3, 0, 0, 0, 3,
+    2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 3, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 1, 1, 1,
@@ -645,7 +645,7 @@ size_t wxMBConvUTF7::WC2MB(char *buf, const wchar_t *psz, size_t n) const
     while (*psz && ((!buf) || (len < n)))
     {
         wchar_t cc = *psz++;
-        if (cc < 0x80 && utf7encode[cc] < 1)
+        if (cc < 0x80 && utf7encode[cc] < 3)
         {
             // plain ASCII char
             if (buf)
@@ -687,7 +687,7 @@ size_t wxMBConvUTF7::WC2MB(char *buf, const wchar_t *psz, size_t n) const
                     }
 
                     cc = *psz;
-                    if (!(cc) || (cc < 0x80 && utf7encode[cc] < 1))
+                    if (!(cc) || (cc < 0x80 && utf7encode[cc] < 3))
                         break;
                 }
 
