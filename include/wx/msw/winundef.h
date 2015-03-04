@@ -25,6 +25,9 @@
 // elsewhere because the functions, unlike the macros, respect the scope.
 // ----------------------------------------------------------------------------
 
+/ Kompletten Header nur mit C++ - Compiler parsen wg. verwendung von inline
+#if defined (c_plusplus) || defined (__cplusplus)
+
 // CreateDialog
 
 #if defined(CreateDialog)
@@ -477,6 +480,7 @@
     }
 #endif
 
+#endif //defined (c_plusplus) || defined (__cplusplus)
 
 // GetWindowProc
 //ifdef GetWindowProc
