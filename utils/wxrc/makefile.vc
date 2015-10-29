@@ -51,7 +51,7 @@ WXUNICODEFLAG = u
 WXUNIVNAME = univ
 !endif
 !if "$(TARGET_CPU)" == "AMD64"
-DIR_SUFFIX_CPU = _amd64
+DIR_SUFFIX_CPU = 
 !endif
 !if "$(TARGET_CPU)" == "IA64"
 DIR_SUFFIX_CPU = _ia64

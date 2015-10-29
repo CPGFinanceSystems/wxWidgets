@@ -20,7 +20,8 @@ CXX = cl
 CFLAGS = 
 
 # Standard flags for C++ 
-CXXFLAGS = 
+# ..\..\src\msw\window.cpp(110) : fatal error C1083: Datei (Include) kann nicht geöffnet werden: "pbt.h"
+CXXFLAGS = /DNEED_PBT_H
 
 # Standard preprocessor flags (common for CC and CXX) 
 CPPFLAGS = 
@@ -32,18 +33,21 @@ LDFLAGS =
 CPP = $(CC) /EP /nologo
 
 # What type of library to build? [0,1]
-SHARED = 0
+# muss 1 sein, damit DLLs gebaut werden
+SHARED = 1
 
 # Build wxUniversal instead of native port? [0,1]
 WXUNIV = 0
 
 # Compile Unicode build of wxWidgets? [0,1]
-UNICODE = 0
+# fuer CPG-UNICODE-Builds diesen Wert aendern
+UNICODE = 1
 
 # Use MSLU library when building Unicode version. [0,1]
 MSLU = 0
 
 # Type of compiled binaries [debug,release]
+# fuer CPG-RELEASE-Builds diesen Wert aendern
 BUILD = debug
 
 # The target processor architecture must be specified when it is not X86.
@@ -53,7 +57,7 @@ BUILD = debug
 # utilities such as the resource compiler and the linker.
 # 
 # Accepted values: AMD64, IA64. 
-TARGET_CPU = $(CPU)
+TARGET_CPU = AMD64
 
 # Should debugging info be included in the executables? The default value
 # "default" means that debug info will be included if BUILD=debug
@@ -117,7 +121,7 @@ USE_GDIPLUS = 0
 OFFICIAL_BUILD = 0
 
 # Use this to name your customized DLLs differently 
-VENDOR = custom
+VENDOR = CPG
 
 #  
 WX_FLAVOUR = 
