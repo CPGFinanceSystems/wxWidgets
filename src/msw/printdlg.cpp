@@ -396,7 +396,7 @@ bool wxWindowsPrintNativeData::TransferTo( wxPrintData &data )
 
 bool wxWindowsPrintNativeData::TransferFrom( const wxPrintData &data )
 {
-    HGLOBAL hDevMode = (HGLOBAL)(DWORD) m_devMode;
+    HGLOBAL hDevMode = static_cast<HGLOBAL>(m_devMode);  // CPG-PATCH
     HGLOBAL hDevNames = (HGLOBAL)(DWORD) m_devNames;
     WinPrinter printer;
     LPTSTR szPrinterName = (LPTSTR)data.GetPrinterName().wx_str();
@@ -492,8 +492,9 @@ bool wxWindowsPrintNativeData::TransferFrom( const wxPrintData &data )
         }
         else
         {
-            hDevMode = pd.hDevMode;
-            m_devMode = (void*)(long) hDevMode;
+            // hDevMode = pd.hDevMode;
+            // m_devMode = (void*)(long) hDevMode;
+            m_devMode = pd.hDevMode;
             pd.hDevMode = NULL;
 
             // We'll create a new DEVNAMEs structure below.
