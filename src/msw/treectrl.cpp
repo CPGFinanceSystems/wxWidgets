@@ -86,13 +86,13 @@ class TreeItemUnlocker
 {
 public:
     // unlock a single item
-    TreeItemUnlocker(HTREEITEM item) { ms_unlockedItem = item; }
+    TreeItemUnlocker(HTREEITEM item) { m_prevItem = ms_unlockedItem; ms_unlockedItem = item; }
 
     // unlock all items, don't use unless absolutely necessary
-    TreeItemUnlocker() { ms_unlockedItem = (HTREEITEM)-1; }
+    TreeItemUnlocker() { m_prevItem = ms_unlockedItem; ms_unlockedItem = (HTREEITEM)-1; }
 
     // lock everything back
-    ~TreeItemUnlocker() { ms_unlockedItem = NULL; }
+    ~TreeItemUnlocker() { ms_unlockedItem = m_prevItem; }
 
 
     // check if the item state is currently locked
@@ -101,6 +101,7 @@ public:
 
 private:
     static HTREEITEM ms_unlockedItem;
+    HTREEITEM m_prevItem;
 };
 
 HTREEITEM TreeItemUnlocker::ms_unlockedItem = NULL;
@@ -1704,6 +1705,10 @@ void wxTreeCtrl::DeleteAllItems()
 {
     // unlock tree selections on vista for the duration of this call
     TreeItemUnlocker unlock_all;
+
+    // invalidate all the items we store as they're going to become invalid
+    m_htSelStart =
+    m_htClickedItem = wxTreeItemId();
 
     // delete the "virtual" root item.
     if ( GET_VIRTUAL_ROOT() )
